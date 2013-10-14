@@ -13,7 +13,7 @@ import sys
 from bs4 import BeautifulSoup
 import codecs
 import logging
-
+import argparse
 
 settings = None   # django Settings文件
 
@@ -107,4 +107,10 @@ def scan_ref():
 
 
 if __name__ == '__main__':
-    pass
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--debug', '-d', action='store_true', help=u'调试模式。不写入文件。')
+    parser.add_argument('path_to_settings', type=str, help=u'Django settings.py文件。要求全路径。')
+    args = parser.parse_args()
+    DEBUG = args.debug
+    _load_settings(args.path_to_settings)
+
